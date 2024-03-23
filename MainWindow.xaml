@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="Pink">
+        Title="MainWindow" Height="450" Width="800" Background="Pink" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -28,7 +28,7 @@
 
         </Grid.ColumnDefinitions>
         <TextBox x:Name="log" Background="White" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Margin="35,10,41,19" />
-        <TextBox x:Name="pass" Background="White" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Margin="35,10,41,19" />
+        <TextBox x:Name="pass" Background="White" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Margin="35,10,41,19" TextChanged="pass_TextChanged" />
         <TextBlock Grid.Row="4" Grid.ColumnSpan="4" FontSize="15" TextAlignment="Center" FontStyle="Oblique"  Name ="rigistr" Text="Не зарегистрированы?" Margin="58,15,102,47" Grid.RowSpan="2"/>
         <Button x:Name="Vhod" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="1" Content="Войти" FontSize="20" Click="Vhod_Click"/>
         <Button x:Name="ToReg" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Background="{x:Null}" BorderBrush="Pink"  Content="Зарегистрироваться" FontSize="15" Margin="67,57,93,5" Grid.RowSpan="2" Click="ToReg_Click"/>

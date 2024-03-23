@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using System.Windows;
 using WpfApp1.Windows;
 
@@ -26,6 +27,8 @@ namespace WpfApp1
                 return;
             }
             MessageBox.Show("Вы успешно вошли в аккаунт");
+           
+            
         }
 
         private void ToReg_Click(object sender, RoutedEventArgs e)
@@ -33,6 +36,11 @@ namespace WpfApp1
             Registration registration = new Registration();
             registration.Show();
             this.Hide();
+        }
+
+        private void pass_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 }
