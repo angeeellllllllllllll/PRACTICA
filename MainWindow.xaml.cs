@@ -21,14 +21,18 @@ namespace WpfApp1
             var password = pass.Text;
             var context = new AppDbContext();
             var user_exist = context.Users.FirstOrDefault(x => x.Login == login && x.Password == password);
-            if (user_exist != null)
+            if (user_exist is null)
             {
-                MessageBox.Show("Неправильный  логин или пароль");
+                MesBox1.Text="Неправильный  логин или пароль";
                 return;
             }
-            MessageBox.Show("Вы успешно вошли в аккаунт");
-           
+            MesBox1.Text ="Вы успешно вошли в аккаунт";
+            this.Hide();
+            Window1 window1 = new Window1();
+            window1.Show();
+            window1.MesBox2.Text = $"hello {log.Text}";
             
+
         }
 
         private void ToReg_Click(object sender, RoutedEventArgs e)

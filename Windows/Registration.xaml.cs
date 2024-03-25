@@ -1,6 +1,8 @@
 ﻿using Microsoft.Windows.Themes;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace WpfApp1.Windows
 {
@@ -21,57 +23,61 @@ namespace WpfApp1.Windows
             var email = mail.Text;
             var context = new AppDbContext();
             var user_exist = context.Users.FirstOrDefault(x => x.Login == login && x.Password == password);
-
-            if (Pass.Text.Length > 6)
-           
+            if ((!Regex.IsMatch(email, @"^[a-zA-z0-9_.+-]+@(mail\.ru|gmail.com|yandex\.ru)$")))
             {
-                bool en = true;
-                bool symbol = false;
-                bool number = false;
-                for (int i = 0; i < Pass.Text.Length; i++)
-                {
-                    if (Pass.Text[i] > 'А' && Pass.Text[i] <= 'Я') en = false;
-                    if (Pass.Text[i] > '0' && Pass.Text[i] <= '9') number = true;
-                    if (Pass.Text[i] == '_' || Pass.Text[i] == '-' || Pass.Text[i] == '!') symbol = true;
-
-                }
-                if (!en)
-                    MessageBox.Show("Доступна только английская раскладка");
-                else if (!symbol)
-                    MessageBox.Show("Добавьте один из следующих символов: _ - !");
-                else if (!number)
-                    MessageBox.Show("Добавьте хотя бы одну цифру");
-                if (en && symbol && number)
-                {
-
-                }
+                MesBox.Text = "Указан неверный email!";
+                error1.Visibility = Visibility.Visible;
             }
-            else MessageBox.Show("Пароль слишком короткий, минимум 6 символов");
-
-            if (Pass.Text == Pass.Text)
+            else if (((!Regex.IsMatch(password, @"[!,&%+_]"))))
             {
-                MessageBox.Show("Пароль загеристрирован");
+                error1.Visibility = Visibility.Collapsed;
+                error2.Visibility = Visibility.Visible;
+                MesBox.Text = "";
+                MesBox.Text = "В пароле требуются спец. символы!";
             }
-            else MessageBox.Show("Пароли не совпадают");
-
-
-
-            if (user_exist is not null)
+            else if (Pass.Text.Length < 8)
             {
-                MessageBox.Show("Такой пользователь уже существует");
+                error2.Visibility = Visibility.Visible;
+                MesBox.Text = "";
+                MesBox.Text = "Данный пароль является ненадёжным!";
+
+            }
+            else if (Pass.Text != pass2.Text)
+            {
+                error2.Visibility = Visibility.Collapsed;
+                error3.Visibility = Visibility.Visible;
+                MesBox.Text = "";
+                MesBox.Text = "Пароли не совпадают!";
+
+            }
+
+
+
+            else if (user_exist is not null)
+            {
+
+                error2.Visibility = Visibility.Visible;
+                error3.Visibility = Visibility.Collapsed;
+                MesBox.Text = "";
+                MesBox.Text = "Такой пользователь уже существует";
                 return;
             }
-            var user = new User { Login = login, Password = password, Email = email };
-            context.Users.Add(user);
-            context.SaveChanges();
-            MessageBox.Show("Добро пожаловать!");
-            
+            else 
+                {
+
+                var user = new User { Login = login, Password = password, Email = email };
+                context.Users.Add(user);
+                context.SaveChanges();
+                MessageBox.Show("Добро пожаловать!");
+            }
 
         }
 
         private void voitiBut_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
            
         }
 
